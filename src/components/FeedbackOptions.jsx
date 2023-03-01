@@ -1,17 +1,21 @@
 import PropTypes from 'prop-types';
 import { Button } from './App.styled'
 
-const FeedbackOptions = ({options, onLeaveFeedback}) => {
+const FeedbackOptions = ({ options, onLeaveFeedback }) => {
     return <div>
-        <Button type="button" onClick={onLeaveFeedback[0]}>{options[0]}</Button>
-        <Button type="button" onClick={onLeaveFeedback[1]}>{options[1]}</Button>
-        <Button type="button" onClick={onLeaveFeedback[2]}>{options[2]}</Button>
+        {options.map(option =>
+            <Button type="button" onClick={() => onLeaveFeedback(option)} key={option}>{capitalizeFirstLetter(option)}</Button>
+        )}
     </div>
  }
 
 FeedbackOptions.propTypes = {
     options: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onLeaveFeedback: PropTypes.arrayOf(PropTypes.func).isRequired,
+    onLeaveFeedback: PropTypes.func.isRequired,
 }
 
 export default FeedbackOptions
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

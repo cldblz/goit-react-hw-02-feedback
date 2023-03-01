@@ -12,21 +12,9 @@ class App extends Component {
     bad: 0
   }
 
-  handleGoodFeedback = () => {
+  handleFeedback = option => {
     this.setState(prevState => ({
-      good: prevState.good + 1
-    }))
-  }
-
-  handleNeutralFeedback = () => {
-    this.setState(prevState => ({
-      neutral: prevState.neutral + 1
-    }))
-  }
-
-  handleBadFeedback = () => {
-    this.setState(prevState => ({
-      bad: prevState.bad + 1
+      [option]: prevState[option] + 1
     }))
   }
 
@@ -43,7 +31,7 @@ class App extends Component {
 
   render() {
     const { good, neutral, bad } = this.state
-    const { handleGoodFeedback, handleNeutralFeedback, handleBadFeedback } = this
+    const { handleFeedback } = this
     const total = this.countTotalFeedback()
     const positivePercentage = this.countPositiveFeedbackPercentage()
     const isFeedbackGiven = !!good || !!neutral || !!bad
@@ -51,7 +39,7 @@ class App extends Component {
     return (
       <Container>
         <Section title="Please leave your feedback">
-          <FeedbackOptions options={["Good", "Neutral", "Bad"]} onLeaveFeedback={[handleGoodFeedback, handleNeutralFeedback, handleBadFeedback]} />
+          <FeedbackOptions options={Object.keys(this.state)} onLeaveFeedback={handleFeedback} />
         </Section>
         <Section title="Statistics">
           {isFeedbackGiven ? <Statistics good={good} neutral={neutral} bad={bad} total={total} positivePercentage={positivePercentage} /> : <Notification message="No feedback given"/>}
