@@ -6,7 +6,7 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => {
         {options.map(option =>
             <Button type="button" onClick={() => onLeaveFeedback(option)} key={option}>{capitalizeFirstLetter(option)}</Button>
         )}
-    </div>
+        </div>
  }
 
 FeedbackOptions.propTypes = {
